@@ -3,7 +3,8 @@ import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import AuthRoute from './Routes/AuthRoute.js'
-
+import cors from 'cors'
+import UserRoute from './Routes/UserRoute.js'
 //! body parser is package for middleware
 
 const app = express();
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded({
     limit: "30mb",
     extended: true
 }))
-
+app.use(cors())
 //? CONNECTION MONGODB
 mongoose.connect(process.env.MONGO_DB, {
         useNewUrlParser: true,
@@ -29,3 +30,4 @@ mongoose.connect(process.env.MONGO_DB, {
 
 //? ROUTES
 app.use('/auth', AuthRoute)
+app.use('/user', UserRoute)

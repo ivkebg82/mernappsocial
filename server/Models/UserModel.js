@@ -20,6 +20,9 @@ const UserSchema = new mongoose.Schema({
         required: true,
         lowercase: true,
     },
+
+    followers: [],
+    following: [],
     profileImg: String,
     coverImg: String,
     worksAt: String,
