@@ -2,8 +2,10 @@ import UserModel from "../Models/UserModel.js"
 const registerController = async (req, res) => {
     if (req.query.confirmPassword !== req.query.password) {
         const error = 'You must enter same values twice!'
-
-        res.send(error)
+        res.status(500).json({
+            message: error
+        })
+        return ''
 
     }
     const user = await new UserModel({
@@ -15,13 +17,16 @@ const registerController = async (req, res) => {
     })
     try {
         await user.save()
-        res.send({
-            user
+        res.status(200).json({
+            data: user
         })
 
 
-    } catch (e) {
-        res.send(e)
+    } catch (error) {
+        res.status(500).json({
+            message: "something get wrong"
+        })
+
     }
 }
 
